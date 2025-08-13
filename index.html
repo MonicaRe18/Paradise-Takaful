@@ -308,9 +308,22 @@
             Chart.defaults.font.family = "'Cairo', sans-serif";
             Chart.defaults.font.weight = '600';
 
+            const animationConfig = {
+                duration: 1200,
+                easing: 'easeInOutQuad',
+                delay: (context) => {
+                    let delay = 0;
+                    if (context.type === 'data' && context.mode === 'default') {
+                        delay = context.dataIndex * 30 + context.datasetIndex * 100;
+                    }
+                    return delay;
+                },
+            };
+
             const barChartOptions = {
                 responsive: true,
                 maintainAspectRatio: false,
+                animation: animationConfig,
                 scales: {
                     y: { grid: { drawBorder: false }, ticks: { font: { size: 12 } } },
                     x: { grid: { display: false }, ticks: { font: { size: 12 } } }
@@ -324,6 +337,7 @@
                 indexAxis: 'y',
                 responsive: true,
                 maintainAspectRatio: false,
+                animation: animationConfig,
                 scales: {
                     y: { grid: { display: false }, ticks: { font: { size: 12 } } },
                     x: { grid: { drawBorder: false }, ticks: { font: { size: 12 } } }
@@ -337,6 +351,11 @@
                  responsive: true,
                  maintainAspectRatio: false,
                  cutout: '70%',
+                 animation: {
+                     animateRotate: true,
+                     animateScale: true,
+                     duration: 1200
+                 },
                  plugins: {
                     legend: {
                         position: 'bottom',
